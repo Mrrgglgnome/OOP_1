@@ -1,50 +1,74 @@
-#include <stdio.h>
-#include <locale.h>
+#include <iostream>
+#include <string>
+#include <random>
+#include <ctime>
 
-typedef struct drob{
-	int chisl;
-	int znam;
+using namespace std;
+
+typedef struct Persona{
+	string name;
+	string arcana;
+	int level;
+	int strength;
+	int magic;
+	int endurance;
+	int agility;
+	int luck;
 };
 
-drob init(int ch, int zn){
-	drob d;
-	d.chisl = ch;
-	d.znam = zn;
-	return d;
+Persona init(string name, string arcana, int lvl, int str, int ma, int end, int ag, int lu){
+	Persona p;
+	p.name = name;
+	p.arcana = arcana;
+	p.level = lvl;
+	p.strength = str;
+	p.magic = ma;
+	p.endurance = end;
+	p.agility = ag;
+	p.luck = lu;
+	return p;
 }
 
-drob read(){
-	drob d;
-	printf("Введите числитель и знаменатель: ");
-	scanf("%d %d", &d.chisl, &d.znam);
-	return d;
+Persona read(){
+	Persona p;
+	cin >> p.name >> p.arcana >> p.level >> p.strength >> p.magic >> p.endurance >> p.agility >> p.luck;
+	return p;
 }
 
-void display(drob d){
-	printf("Числитель: %d, Знаменатель: %d\n", d.chisl, d.znam);
+void display(Persona p){
+	cout << "Persona's name: " << p.name << ", Persona's arcana: " << p.arcana << endl;
+	cout << "Persona's stats:" << endl;
+	cout << "Level: " << p.level << endl;
+	cout << "Strength: " << p.strength << endl;
+	cout << "Magic: " << p.magic << endl;
+	cout << "Endurance: " << p.endurance << endl;
+	cout << "Agility: " << p.agility << endl;
+	cout << "Luck: " << p.luck << endl;
 }
 
-drob add(drob a, drob b){
-	drob  d;
-	d.chisl = a.chisl * b.znam + b.chisl * a.znam;
-	d.znam = a.znam * b.znam;
-	return d;
-}
-
-float drob_ch(drob d){
-	float a;
-	int b = d.chisl % d.znam;
-	a = b / float(d.znam);
-	return a;
+Persona add(Persona p1, Persona p2){
+	Persona p;
+	srand(time(0));
+	int i = rand() % 2;
+	p.name = p1.name.substr(0, p1.name.length() / 2) + p2.name.substr(p2.name.length() / 2, p2.name.length() - 1);
+	if (i)
+		p.arcana = p1.arcana;
+	else
+		p.arcana = p2.arcana;
+	p.level = (p1.level + p2.level) / 2;
+	p.strength = (p1.strength + p2.strength) / 2;
+	p.magic = (p1.magic + p2.magic) / 2;
+	p.endurance = (p1.endurance + p2.endurance) / 2;
+	p.agility = (p1.agility + p2.agility) / 2;
+	p.luck = (p1.luck + p2.luck) / 2;
+	return p;
 }
 
 int main(){
-	setlocale(LC_ALL, "rus");
-	struct drob d1, d2, d3;
-	d1 = read();
-	d2 = read();
-	d3 = add(d1, d2);
-	display(d3);
-	printf("%f\n", drob_ch(d3));
+	struct Persona p1, p2, p3;
+	p1 = read();
+	p2 = read();
+	p3 = add(p1, p2);
+	display(p3);
 	return 0;
 }

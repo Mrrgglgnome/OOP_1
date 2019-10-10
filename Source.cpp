@@ -5,7 +5,21 @@
 
 using namespace std;
 
-typedef struct Persona{
+class Persona{
+public:
+	void Init(string name, string arcana, int lvl, int str, int ma, int end, int ag, int lu){
+		this->name = name;
+		this->arcana = arcana;
+		this->level = lvl;
+		this->strength = str;
+		this->magic = ma;
+		this->endurance = end;
+		this->agility = ag;
+		this->luck = lu;
+	}
+
+
+private:
 	string name;
 	string arcana;
 	int level;
@@ -15,19 +29,6 @@ typedef struct Persona{
 	int agility;
 	int luck;
 };
-
-Persona init(string name, string arcana, int lvl, int str, int ma, int end, int ag, int lu){
-	Persona p;
-	p.name = name;
-	p.arcana = arcana;
-	p.level = lvl;
-	p.strength = str;
-	p.magic = ma;
-	p.endurance = end;
-	p.agility = ag;
-	p.luck = lu;
-	return p;
-}
 
 Persona read(){
 	Persona p;

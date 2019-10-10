@@ -26,7 +26,7 @@ void display(drob d){
 
 drob add(drob a, drob b){
 	drob  d;
-	d.chisl = a.chisl * b.chisl;
+	d.chisl = a.chisl * b.znam + b.chisl * a.znam;
 	d.znam = a.znam * b.znam;
 	return d;
 }

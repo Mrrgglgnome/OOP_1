@@ -1,50 +1,49 @@
 #include <stdio.h>
 #include <locale.h>
 
-typedef struct drob{
+class drob{
+public:
+
+	void Init(int ch, int zn){
+		this->chisl = ch;
+		this->znam = zn;
+	}
+
+	void Read(){
+		printf("Введите числитель и знаменатель: ");
+		scanf("%d %d", &this->chisl, &this->znam);
+	}
+
+	void Display(){
+		printf("Числитель: %d, Знаменатель: %d\n", this->chisl, this->znam);
+	}
+
+	static drob Add(drob d1, drob d2){
+		drob d;
+		d.chisl = d1.chisl * d2.znam + d2.chisl * d1.znam;
+		d.znam = d1.znam * d2.znam;
+		return d;
+	}
+
+	float drob_ch(){
+		float a;
+		int b = this->chisl % this->znam;
+		a = b / float(this->znam);
+		return a;
+	}
+
+private:
 	int chisl;
 	int znam;
 };
 
-drob init(int ch, int zn){
-	drob d;
-	d.chisl = ch;
-	d.znam = zn;
-	return d;
-}
-
-drob read(){
-	drob d;
-	printf("Введите числитель и знаменатель: ");
-	scanf("%d %d", &d.chisl, &d.znam);
-	return d;
-}
-
-void display(drob d){
-	printf("Числитель: %d, Знаменатель: %d\n", d.chisl, d.znam);
-}
-
-drob add(drob a, drob b){
-	drob  d;
-	d.chisl = a.chisl * b.znam + b.chisl * a.znam;
-	d.znam = a.znam * b.znam;
-	return d;
-}
-
-float drob_ch(drob d){
-	float a;
-	int b = d.chisl % d.znam;
-	a = b / float(d.znam);
-	return a;
-}
-
 int main(){
 	setlocale(LC_ALL, "rus");
-	struct drob d1, d2, d3;
-	d1 = read();
-	d2 = read();
-	d3 = add(d1, d2);
-	display(d3);
-	printf("%f\n", drob_ch(d3));
+	drob d1, d2, d3;
+	d1.Read();
+	d2.Read();
+	d3 = drob::Add(d1, d2);
+	d3.Display();
+	printf("%f\n", d3.drob_ch());
 	return 0;
 }

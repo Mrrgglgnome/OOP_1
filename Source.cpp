@@ -64,11 +64,30 @@ Persona add(Persona p1, Persona p2){
 	return p;
 }
 
+void fight(Persona p1, Persona p2){
+	srand(time(0));
+	int f;
+	int p1_luck = rand() % p1.luck, p2_luck = rand() % p2.luck;
+	int p1_attack = p1.strength + p1.magic, p2_attack = p2.strength + p2.magic;
+	for (int i = 0; i < p1.agility; i += 5)
+		p1_attack *= p1_luck;
+	for (int i = 0; i < p2.agility; i += 5)
+		p2_attack *= p2_luck;
+	int p1_damage = p1_attack / p2.endurance, p2_damage = p2_attack / p1.endurance;
+	if (p1_damage > p2_damage)
+		cout << "Winner: " << p1.name << endl;
+	if (p2_damage > p1_damage)
+		cout << "Winner: " << p2.name << endl;
+	if (p2_damage == p1_damage)
+		cout << "No winners" << endl;
+}
+
 int main(){
 	struct Persona p1, p2, p3;
 	p1 = read();
 	p2 = read();
 	p3 = add(p1, p2);
 	display(p3);
+	fight(p2, p3);
 	return 0;
 }
